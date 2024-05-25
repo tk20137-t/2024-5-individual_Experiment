@@ -63,6 +63,13 @@ function displaySubjectDB() {
           </div>
         `);
       });
+      dataHTML.push(`
+        <div class="row ">
+          <div class="col-md-4 mb-3">
+            <button onclick="showDown()" class="btn btn-outline-primary btn-lg">閉じる</button>
+          </div>
+        </div>
+      `);
       dataDisplay.innerHTML = dataHTML.join('');
       
       // 削除ボタンのイベントリスナーを追加
