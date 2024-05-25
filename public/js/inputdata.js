@@ -32,6 +32,8 @@ let Onsubject = false;
 let Onteacher = false;
 let Onclassroom = false;
 
+let dataHTML;
+
 // DBを表示--------------------------------------------------------------------------------
 
 // DBをゼロから表示しなおす
