@@ -281,6 +281,7 @@ $submitClassroom.addEventListener('click', (e) => {
 function addSubjectDeleteEvent(data) {
   data.comas.forEach(subject => {
     document.getElementById("subjectDelete" + subject.科目ID).addEventListener('click', (e) => {
+      console.log('subject.科目ID', subject.科目ID);
       // 削除リクエストをサーバーに送信
       fetch(`/delete-subject/${subject.科目ID}`, {
         method: 'DELETE'
