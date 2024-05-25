@@ -38,15 +38,19 @@ app.get('/fetch-data', (req, res) => {
     text: "SELECT * FROM コマ表",
   };
 
-    client.query(query1)
-      .then(result => {
-        console.log('result.rows:', result.rows); // クエリ結果をログに出力して確認
-        res.json({comas: result.rows });
-    })
-    .catch((e) => {
-        console.error(e.stack);
-        res.status(500).json({ error: 'Internal Server Error' });
-    });
+  app.use((req, res, next) => {
+    res.status(404).send('Sorry, that route doesn\'t exist.');
+  });
+
+  client.query(query1)
+    .then(result => {
+      console.log('result.rows:', result.rows); // クエリ結果をログに出力して確認
+      res.json({comas: result.rows });
+  })
+  .catch((e) => {
+      console.error(e.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+  });
 });
 
 // エラーハンドリング
