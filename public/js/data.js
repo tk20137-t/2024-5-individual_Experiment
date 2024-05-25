@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(error => {
-            console.error('Error反映されてるよ:', error);
+            console.error('Error:', error);
         });
     });
 

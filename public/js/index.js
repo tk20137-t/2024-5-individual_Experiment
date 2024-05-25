@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const path = require('path'); // pathモジュールを追加
 
 app.use(cors());
 
@@ -29,7 +28,7 @@ app.use(express.static('public'));
 // ルート
 app.get('/', (req, res) => {
   console.log('__dirname:', __dirname);
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.join(__dirname, 'public', 'index.html');
 });
 
 // データを取得するエンドポイント
