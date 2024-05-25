@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
 
 // データを取得するエンドポイント
 app.get('/fetch-data', (req, res) => {
+  console.log('Received request for /fetch-data'); // リクエストをログに記録
   const query1 = {
     text: "SELECT * FROM コマ表",
   };
