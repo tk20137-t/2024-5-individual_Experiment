@@ -279,11 +279,11 @@ $submitClassroom.addEventListener('click', (e) => {
 
 // 削除ボタンが押されたときに呼び出される関数．----------------------------------------------
 function addSubjectDeleteEvent() {
-  subjects.forEach(function (currentValue, index, array) {
-    document.getElementById("subjectDelete" + array[index]["科目ID"]).addEventListener('click', (e) => {
+  data.comas.forEach(subject => {
+    document.getElementById("subjectDelete" + subject.科目ID).addEventListener('click', (e) => {
       // 削除する
-      subjects.splice(index, 1);
-      displaySubjectDB();
+      // subjects.splice(index, 1); これは削除処理はいりません
+      displaySubjectDB(); // ここでデータを再取得して表示
     });
   });
 }
