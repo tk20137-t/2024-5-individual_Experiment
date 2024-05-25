@@ -282,7 +282,7 @@ function addSubjectDeleteEvent(data) {
   data.comas.forEach(subject => {
     document.getElementById("subjectDelete" + subject.科目ID).addEventListener('click', (e) => {
       // 削除する
-      // subjects.splice(index, 1); これは削除処理はいりません
+      subject.splice(index, 1);
       displaySubjectDB(); // ここでデータを再取得して表示
     });
   });
