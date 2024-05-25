@@ -73,16 +73,13 @@ app.post('/api/registerClass', async (req, res) => {
     for (const registeredClass of allClasses) {
       const {
         subjectName,
-        teacherName1,
-        teacherName2,
+        teacherName,
         classValue,
         classroomName,
         timeValue,
         dayValue,
         priorityValue
       } = registeredClass;
-
-      const fullTeacherName = `${teacherName1} ${teacherName2}`;
 
       // 科目名からコマ数を取得
       const komasuResult = await client.query(
@@ -102,7 +99,7 @@ app.post('/api/registerClass', async (req, res) => {
         // データベースにデータを挿入
         await client.query(
           'INSERT INTO "コマ表" ("コマID", "科目名", "教員名", "クラス", "教室名", "実施時間", "コマ数", "コマ優先度", "曜日") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-          [newId, subjectName, fullTeacherName, classValue, classroomName, timeValue, komasuValue, priorityValue, dayValue]
+          [newId, subjectName, teacherName, classValue, classroomName, timeValue, komasuValue, priorityValue, dayValue]
         );
       } else {
         throw new Error(`指定された科目が見つかりません: ${subjectName}`);

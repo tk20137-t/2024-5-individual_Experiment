@@ -16,6 +16,23 @@ function loadKomasFromLocalStorage() {
     return komas ? JSON.parse(komas) : [];
 }
 
+function updateLocalStorage() {
+    const subjects = Array.from(sortable.children).map((subjectItem, index) => ({
+        subjectName: subjectItem.textContent.replace(/[×↓↑]/g, '').trim(),
+        teacherName1: subjectItem.dataset.teacherName1,
+        teacherName2: subjectItem.dataset.teacherName2,
+        classValue: subjectItem.dataset.classValue,
+        classroomName: subjectItem.dataset.classroomName,
+        timeValue1: subjectItem.dataset.timeValue1,
+        timeValue2: subjectItem.dataset.timeValue2,
+        dayValue: subjectItem.dataset.dayValue,
+        priorityValue: index + 1
+    }));
+
+    saveSubjectsToLocalStorage(subjects);
+}
+
+
 document.addEventListener('DOMContentLoaded', async (event) => {
     function addOption(selectElement, text, value, disabled = false, selected = false) {
         const option = document.createElement('option');
@@ -126,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
     async function initializeKomas() {
         const komas = await fetchKomas();
-        console.log('Initializing komas:', komas);
+        console.log('InitializingKomas()時のkomas:', komas);
 
         // ローカルストレージに保存
         saveSubjectsToLocalStorage(komas);
@@ -147,13 +164,11 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         koteiItem.textContent = koma.科目名;
         
         // データセットに値を設定
-        koteiItem.dataset.teacherName1 = koma.teacherName1;
-        koteiItem.dataset.teacherName2 = koma.teacherName2;
-        koteiItem.dataset.classValue = koma.classValue;
-        koteiItem.dataset.classroomName = koma.classroomName;
-        koteiItem.dataset.timeValue1 = koma.timeValue1;
-        koteiItem.dataset.timeValue2 = koma.timeValue2;
-        koteiItem.dataset.dayValue = koma.dayValue;
+        koteiItem.dataset.teacherName = koma.教員名;
+        koteiItem.dataset.classValue = koma.クラス;
+        koteiItem.dataset.classroomName = koma.教室名;
+        koteiItem.dataset.timeValue = koma.実施時間;
+        koteiItem.dataset.dayValue = koma.曜日;
         
         const closeButton = document.createElement('button');
         closeButton.textContent = '×';
@@ -163,12 +178,10 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             // ローカルストレージを更新
             const komas = Array.from(kotei.children).map(koteiItem => ({
                 name: koteiItem.textContent.replace('×', '').trim(),
-                teacherName1: koteiItem.dataset.teacherName1,
-                teacherName2: koteiItem.dataset.teacherName2,
+                teacherName: koteiItem.dataset.teacherName,
                 classValue: koteiItem.dataset.classValue,
                 classroomName: koteiItem.dataset.classroomName,
-                timeValue1: koteiItem.dataset.timeValue1,
-                timeValue2: koteiItem.dataset.timeValue2,
+                timeValue: koteiItem.dataset.timeValue,
                 dayValue: koteiItem.dataset.dayValue
             }));
             saveSubjectsToLocalStorage(komas);
@@ -199,19 +212,29 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     }
 
     function addSubject(koma) {
+        // koma オブジェクトの内容をログ出力
+        console.log('addsubject()関数に渡されたkoma:', koma);
+        
         const subjectItem = document.createElement('div');
         subjectItem.textContent = koma.科目名;
     
         // データセットに値を設定
-        subjectItem.dataset.teacherName1 = koma.teacherName1;
-        subjectItem.dataset.teacherName2 = koma.teacherName2;
-        subjectItem.dataset.classValue = koma.classValue;
-        subjectItem.dataset.classroomName = koma.classroomName;
-        subjectItem.dataset.timeValue1 = koma.timeValue1;
-        subjectItem.dataset.timeValue2 = koma.timeValue2;
-        subjectItem.dataset.dayValue = koma.dayValue;
+        subjectItem.dataset.teacherName = koma.教員名;
+        subjectItem.dataset.classValue = koma.クラス;
+        subjectItem.dataset.classroomName = koma.教室名;
+        subjectItem.dataset.timeValue = koma.実施時間;
+        subjectItem.dataset.dayValue = koma.曜日;
 
-    
+        // デバッグ用ログの追加
+        console.log('addSubject()時のデータセット:', {
+            teacherName: koma.教員名,
+            classValue: koma.クラス,
+            classroomName: koma.教室名,
+            timeValue1: koma.実施時間,
+            dayValue: koma.曜日,
+        });
+
+
         const closeButton = document.createElement('button');
         closeButton.textContent = '×';
         closeButton.classList.add('close-button');
@@ -221,12 +244,10 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             const subjects = Array.from(sortable.children).map(subjectItem => ({
                 name: subjectItem.textContent.replace(/[×↓↑]/g, '').trim(),
                 priority: subjectItem.dataset.priority,
-                teacherName1: subjectItem.dataset.teacherName1,
-                teacherName2: subjectItem.dataset.teacherName2,
+                teacherName: subjectItem.dataset.teacherName,
                 classValue: subjectItem.dataset.classValue,
                 classroomName: subjectItem.dataset.classroomName,
-                timeValue1: subjectItem.dataset.timeValue1,
-                timeValue2: subjectItem.dataset.timeValue2,
+                timeValue: subjectItem.dataset.timeValue,
                 dayValue: subjectItem.dataset.dayValue
             }));
             saveSubjectsToLocalStorage(subjects);
@@ -265,14 +286,13 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         if (subject !== '') {
             const koma = {
                 科目名: subject,
-                teacherName1: teacher1,
-                teacherName2: teacher2,
-                classValue: classValue,
-                classroomName: classroom,
-                timeValue1: time1,
-                timeValue2: time2,
-                dayValue: dayOfWeek
+                教員名 : teacher2 ? `${teacher1} ${teacher2}` : teacher1,
+                クラス: classValue,
+                教室名: classroom,
+                実施時間 : time2 ? `${time1}-${time2}` : time1,
+                曜日: dayOfWeek
             };
+            console.log('登録ボタンが押された時のkoma:', koma);
 
             if (time1 && time2 && dayOfWeek) {
                 addKoteiKoma(koma);
@@ -286,12 +306,10 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
                 priority: index + 1,
                 // ここで科目ごとに異なる情報を追加
-                teacherName1: subjectItem.dataset.teacherName1,
-                teacherName2: subjectItem.dataset.teacherName2,
+                teacherName: subjectItem.dataset.teacherName,
                 classValue: subjectItem.dataset.classValue,
                 classroomName: subjectItem.dataset.classroomName,
-                timeValue1: subjectItem.dataset.timeValue1,
-                timeValue2: subjectItem.dataset.timeValue2,
+                timeValue: subjectItem.dataset.timeValue,
                 dayValue: subjectItem.dataset.dayValue
             }));
     
@@ -313,20 +331,35 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     
 
     function getRegisteredClasses() {
+        console.log('getRegisteredClassesが呼び出されました');
+        if (!sortable) {
+            console.error('sortable要素が見つかりません');
+            return [];
+        }
         const registeredClasses = Array.from(sortable.children).map((subjectItem, index) => {
+            console.log('subjectItem:', subjectItem);
+            console.log('subjectItem.dataset:', subjectItem.dataset);
+
             const subjectName = subjectItem.textContent.replace(/[×↓↑]/g, '').trim();
-            const teacherName1 = subjectItem.dataset.teacherName1;
-            const teacherName2 = subjectItem.dataset.teacherName2;
+            const teacherName = subjectItem.dataset.teacherName;
             const classValue = subjectItem.dataset.classValue;
             const classroomName = subjectItem.dataset.classroomName;
-            const timeValue1 = subjectItem.dataset.timeValue1;
-            const timeValue2 = subjectItem.dataset.timeValue2;
-            const timeValue = timeValue2 ? `${timeValue1}-${timeValue2}` : timeValue1;
+            const timeValue = subjectItem.dataset.timeValue;
             const dayValue = subjectItem.dataset.dayValue;
+    
+            console.log('getRegisteredClasses:', {
+                subjectName,
+                teacherName,
+                classValue,
+                classroomName,
+                timeValue,
+                dayValue,
+                priorityValue: index + 2
+            });
+    
             return {
                 subjectName,
-                teacherName1,
-                teacherName2,
+                teacherName,
                 classValue,
                 classroomName,
                 timeValue,
@@ -336,22 +369,43 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
         return registeredClasses;
     }
-
+    
+    
     function getregisteredKomas() {
         const registeredKomas = Array.from(kotei.children).map((koteiItem, index) => {
             const subjectName = koteiItem.textContent.replace('×', '').trim();
+            const teacherName = koteiItem.dataset.teacherName;
+            const classValue = koteiItem.dataset.classValue;
+            const classroomName = koteiItem.dataset.classroomName;
+            const timeValue = koteiItem.dataset.timeValue;
+            const dayValue = koteiItem.dataset.dayValue;
+/*
+            const subjectName = koteiItem.textContent.replace('×', '').trim();
+
             const teacherName1 = koteiItem.dataset.teacherName1;
             const teacherName2 = koteiItem.dataset.teacherName2;
+            const teacherName = teacherName2 ? `${teacherName1}-${teacherName2}` : teacherName1;
             const classValue = koteiItem.dataset.classValue;
             const classroomName = koteiItem.dataset.classroomName;
             const timeValue1 = koteiItem.dataset.timeValue1;
             const timeValue2 = koteiItem.dataset.timeValue2;
             const timeValue = timeValue2 ? `${timeValue1}-${timeValue2}` : timeValue1;
             const dayValue = koteiItem.dataset.dayValue;
+*/
+    
+            console.log('getregisteredKomas時のregisteredKomas:', {
+                subjectName,
+                teacherName,
+                classValue,
+                classroomName,
+                timeValue,
+                dayValue,
+                priorityValue: 1
+            });
+    
             return {
                 subjectName,
-                teacherName1,
-                teacherName2,
+                teacherName,
                 classValue,
                 classroomName,
                 timeValue,
@@ -361,6 +415,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
         return registeredKomas;
     }
+    
 
     confirmBtn.addEventListener('click', async () => {
         try {

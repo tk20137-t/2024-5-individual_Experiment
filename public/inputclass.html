@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>授業コマ作成</title>
-    <link rel="stylesheet" href="/css/inputclass.css">
+    <link rel="stylesheet" href="inputclass.css">
 </head>
 <body>
     <h1>授業コマ作成</h1>
@@ -72,11 +72,28 @@
                 <option value="" disabled selected>選択してください</option>
                 
                 <label for="time">実施時間:</label>
-                <input type="text" id="time" name="time" required></input>
+                <select type="text" id="time" name="time" required>
                 <option value="" disabled selected>選択してください</option>
-                <input type="text" id="time2" name="time2" required></input><br><br>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+                <select type="text" id="time2" name="time2" required>
                 <option value="" disabled selected>選択してください</option>
-
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select><br><br>
                 <label for="time">曜日:</label>
                 <select id="dayOfWeek" name="dayOfWeek" required>
                     <option value="" disabled selected>選択してください</option>
@@ -106,9 +123,9 @@
 
     <div class="buttons">
         <button onclick="location.href='inputdata.html'" id="inputdata">基礎データ入力画面へ</button>
-        <button onclick="location.href='index.html'" id="composition">時間割編成画面へ</button>
+        <button onclick="location.href='composition.html'" id="composition">時間割編成画面へ</button>
     </div>
 
-    <script src="/js/inputclass.js"></script>
+    <script src="inputclass.js"></script>
 </body>
 </html>
