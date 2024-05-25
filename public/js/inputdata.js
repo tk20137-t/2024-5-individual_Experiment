@@ -281,9 +281,20 @@ $submitClassroom.addEventListener('click', (e) => {
 function addSubjectDeleteEvent(data) {
   data.comas.forEach(subject => {
     document.getElementById("subjectDelete" + subject.科目ID).addEventListener('click', (e) => {
-      // 削除する
-      subject.splice(index, 1);
-      displaySubjectDB(); // ここでデータを再取得して表示
+      // 削除リクエストをサーバーに送信
+      fetch(`/delete-subject/${subject.科目ID}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          displaySubjectDB(); // データを再取得して表示
+        } else {
+          console.error('Failed to delete subject');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting subject:', error);
+      });
     });
   });
 }
@@ -291,9 +302,20 @@ function addSubjectDeleteEvent(data) {
 function addTeacherDeleteEvent() {
   teachers.forEach(function (currentValue, index, array) {
     document.getElementById("teacherDelete" + array[index]["教員ID"]).addEventListener('click', (e) => {
-      // 削除する
-      teachers.splice(index, 1);
-      displayTeacherDB();
+      // 削除リクエストをサーバーに送信
+      fetch(`/delete-teacher/${array[index]["教員ID"]}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          displayTeacherDB(); // データを再取得して表示
+        } else {
+          console.error('Failed to delete teacher');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting teacher:', error);
+      });
     });
   });
 }
@@ -301,9 +323,20 @@ function addTeacherDeleteEvent() {
 function addClassroomDeleteEvent() {
   classrooms.forEach(function (currentValue, index, array) {
     document.getElementById("classroomDelete" + array[index]["教室ID"]).addEventListener('click', (e) => {
-      // 削除する
-      classrooms.splice(index, 1);
-      displayClassroomDB();
+      // 削除リクエストをサーバーに送信
+      fetch(`/delete-classroom/${array[index]["教室ID"]}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          displayClassroomDB(); // データを再取得して表示
+        } else {
+          console.error('Failed to delete classroom');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting classroom:', error);
+      });
     });
   });
 }
