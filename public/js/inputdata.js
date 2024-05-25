@@ -73,7 +73,7 @@ function displaySubjectDB() {
       dataDisplay.innerHTML = dataHTML.join('');
       
       // 削除ボタンのイベントリスナーを追加
-      addSubjectDeleteEvent();
+      addSubjectDeleteEvent(data);
     })
     .catch(error => {
       console.error('Error fetching subject data:', error);
@@ -278,7 +278,7 @@ $submitClassroom.addEventListener('click', (e) => {
 });
 
 // 削除ボタンが押されたときに呼び出される関数．----------------------------------------------
-function addSubjectDeleteEvent() {
+function addSubjectDeleteEvent(data) {
   data.comas.forEach(subject => {
     document.getElementById("subjectDelete" + subject.科目ID).addEventListener('click', (e) => {
       // 削除する
