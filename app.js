@@ -125,7 +125,7 @@ app.post('/fetch-subject', (req, res) => {
 });
 
 app.post('/fetch-teacher', (req, res) => {
-  const { 教員ID, 教員名, 常勤・非常勤, 所属 } = req.body;
+  const { 教員ID, 教員名, "常勤・非常勤": 所属 } = req.body;
   const query = "INSERT INTO teachers (teacher_id, teacher_name, full_time, affiliation) VALUES ($1, $2, $3, $4)"; // テーブル名とカラム名を適切に変更してください
 
   client.query(query, [教員ID, 教員名, "常勤・非常勤", 所属])
@@ -139,7 +139,7 @@ app.post('/fetch-teacher', (req, res) => {
 });
 
 app.post('/fetch-classroom', (req, res) => {
-  const { 教室ID, "HR・特別教室", 教室名 } = req.body;
+  const { 教室ID, "HR・特別教室": 教室名 } = req.body;
   const query = "INSERT INTO classrooms (classroom_id, hr_special_classroom, classroom_name) VALUES ($1, $2, $3)"; // テーブル名とカラム名を適切に変更してください
 
   client.query(query, [教室ID, "HR・特別教室", 教室名])
