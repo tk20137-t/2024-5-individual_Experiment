@@ -295,6 +295,40 @@ function addClassroomDeleteEvent() {
   });
 }
 
+//保存されたデータの表示・非表示の切り替え
+function showSavedSubjects() {
+  errorCancell()
+  dataDisplay.innerHTML = '';
+  Onsubject = !Onsubject;
+  Onteacher = false;
+  Onclassroom = false;
+  if (Onsubject) {
+    displaySubjectDB();
+  }
+}
+
+function showSavedTeachers() {
+  errorCancell()
+  dataDisplay.innerHTML = '';
+  Onteacher = !Onteacher;
+  Onsubject = false;
+  Onclassroom = false;
+  if (Onteacher) {
+    displayTeacherDB();
+  }
+}
+
+function showSavedClassrooms() {
+  errorCancell()
+  dataDisplay.innerHTML = '';
+  Onclassroom = !Onclassroom;
+  Onsubject = false;
+  Onteacher = false;
+  if (Onclassroom) {
+    displayClassroomDB();
+  }
+}
+
 function errorCancell() {
   subjectError.innerHTML = "";
   teacherError.innerHTML = "";
