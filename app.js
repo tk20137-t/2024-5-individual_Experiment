@@ -111,7 +111,7 @@ app.get('/fetch-classroom', (req, res) => {
 app.delete('/delete-subject/:id', (req, res) => {
   const subjectID = req.params.id;
   const query5 = {
-    text: "DELETE FROM 科目表 WHERE subject_id = $1" 
+    text: "DELETE FROM 科目表 WHERE 科目ID = $1" 
   };
 
   client.query(query5, [subjectID])
@@ -127,7 +127,7 @@ app.delete('/delete-subject/:id', (req, res) => {
 app.delete('/delete-teacher/:id', (req, res) => {
   const teacherID = req.params.id;
   const query6 = {
-    text :"DELETE FROM 教員表 WHERE teacher_id = $1" 
+    text :"DELETE FROM 教員表 WHERE 教員ID = $1" 
   };
 
   client.query(query6, [teacherID])
@@ -143,7 +143,7 @@ app.delete('/delete-teacher/:id', (req, res) => {
 app.delete('/delete-classroom/:id', (req, res) => {
   const classroomID = req.params.id;
   const query7 = {
-    text: "DELETE FROM 教室表 WHERE classroom_id = $1"
+    text: "DELETE FROM 教室表 WHERE 教室ID = $1"
   };
 
   client.query(query7, [classroomID])
