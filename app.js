@@ -14,7 +14,10 @@ const client = new Client({
   host: "dpg-cofnc2f79t8c73c6v0q0-a.singapore-postgres.render.com",
   database: "nittc2024_j5exp_21",
   password: "GEhpFFeayHeogc15345Giu8e3WdOGi40",
-  port: 5432
+  port: 5432,
+  ssl: {
+    rejectUnauthorized: false // 試験的な目的のみで使用する場合。
+  }
 });
 
 client.connect()
