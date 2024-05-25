@@ -42,7 +42,7 @@ function displaySubjectDB() {
   fetch('/fetch-subject')
     .then(response => response.json())
     .then(data => {
-      console.log("data.comas:", data.comas);
+      console.log("data.subject_comas表示:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">科目データ</h2>`);
       data.comas.forEach(subject => {
@@ -71,27 +71,13 @@ function displaySubjectDB() {
     .catch(error => {
       console.error('Error fetching subject data:', error);
   });
-
-  dataHTML.push(`
-  <div class="row ">
-  <div class="col-md-4 mb-3">
-    <button onclick="showDown()" class="btn btn-outline-primary btn-lg">閉じる</button>
-  </div>
-  </div>
-  `);
-
-  dataDisplay.innerHTML = '';
-  for (var i = 0; i < dataHTML.length; i++) {
-    dataDisplay.innerHTML += dataHTML[i];
-  }
-  addSubjectDeleteEvent();
 }
 
 function displayTeacherDB() {
   fetch('/fetch-teachers') // 教員データを取得するAPIのエンドポイントを指定する必要があります
     .then(response => response.json())
     .then(data => {
-      console.log("data.teachers:", data.comas.teachers);
+      console.log("data.teachers_comas表示:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">教員データ</h2>`);
       data.comas.forEach(teacher => {
@@ -133,7 +119,7 @@ function displayClassroomDB() {
   fetch('/fetch-classroom') // ここで教室データを取得するAPIのエンドポイントを指定する必要があります
     .then(response => response.json())
     .then(data => {
-      console.log("data.classrooms:", data.comas.classrooms);
+      console.log("data.classroom_comas表示:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">教室データ</h2>`);
       data.comas.forEach(classroom => {
