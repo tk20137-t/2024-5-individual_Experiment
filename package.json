@@ -1,9 +1,9 @@
 {
-  "name": "nittc2024-j5exp-21",
+  "name": "2024-5-individual_Experiment",
   "version": "1.0.0",
   "description": "Express Hello World on Render",
   "main": "app.js",
-  "repository": "https://github.com/tk20137-t/nittc2024-j5exp-21/tree/main",
+  "repository": "https://github.com/tk20137-t/2024-5-individual_Experiment/tree/main",
   "author": "Render Developers",
   "license": "MIT",
   "private": false,
