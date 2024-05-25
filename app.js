@@ -72,12 +72,12 @@ app.get('/fetch-subject', (req, res) => {
 
 app.get('/fetch-classroom', (req, res) => {
   console.log('Received request for /fetch-classroom');
-  const query2 = {
+  const query3 = {
     text: "SELECT * FROM 教室表"
   };
-  console.log('query2:', query2);
+  console.log('query3:', query3);
 
-  client.query(query2)
+  client.query(query3)
     .then(result => {
       console.log('result.rows:', result.rows);
       res.json({ comas: result.rows });
@@ -90,12 +90,12 @@ app.get('/fetch-classroom', (req, res) => {
 
 app.get('/fetch-classroom', (req, res) => {
   console.log('Received request for /fetch-classroom');
-  const query2 = {
+  const query4 = {
     text: "SELECT * FROM 教室表"
   };
-  console.log('query2:', query2);
+  console.log('query4:', query4);
 
-  client.query(query2)
+  client.query(query4)
     .then(result => {
       console.log('result.rows:', result.rows);
       res.json({ comas: result.rows });

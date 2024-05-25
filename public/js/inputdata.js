@@ -42,35 +42,32 @@ function displaySubjectDB() {
   fetch('/fetch-subject')
     .then(response => response.json())
     .then(data => {
-      // データを処理して表示する
-      console.log(data); // 例としてコンソールに表示する
+      dataHTML = [];
+      dataHTML.push(`<h2 class="text-center text-info m-4">科目データ</h2>`);
+      data.forEach(item => {
+        dataHTML.push(`
+          <div class="border p-3 mb-3 data-row">
+            <div>
+              <p><strong>科目名:</strong> ${item.subject_name}</p>
+            </div>
+            <div>
+              <p><strong>コマ数:</strong> ${item.lesson_count}</p>
+            </div>
+            <div>
+              <p><strong>期間:</strong> ${item.term}</p>
+            </div>
+            <div class="delete-subjectButton">
+              <button class="btn btn-secondary" id="subjectDelete${item.subject_id}">削除</button>
+            </div>
+          </div>
+        `);
+      });
+      dataDisplay.innerHTML = dataHTML.join('');
     })
     .catch(error => {
       console.error('Error fetching subject data:', error);
-    });
-  dataHTML = [];
-  dataHTML.push(`  
-    <h2 class="text-center text-info m-4">科目データ</h2>
-    `);
-  subjects.forEach(function (currentValue, index, array) {
-    let tmp = array.length - 1 - index;
-    dataHTML.push(`
-    <div class="border p-3 mb-3 data-row">
-      <div>
-        <p><strong>科目名:</strong> ${array[tmp]["科目名"]}</p>
-      </div>
-      <div>
-        <p><strong>コマ数:</strong> ${array[tmp]["コマ数"]}</p>
-      </div>
-      <div>
-        <p><strong>常勤・非常勤:</strong> ${array[tmp]["期間"]}</p>
-      </div>
-      <div class="delete-subjectButton">
-        <button class="btn btn-secondary" id="subjectDelete`+ array[tmp]["科目ID"] + `">削除</button>
-      </div>
-    </div>
-    `);
   });
+
   dataHTML.push(`
   <div class="row ">
   <div class="col-md-4 mb-3">
