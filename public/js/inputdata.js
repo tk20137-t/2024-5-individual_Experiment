@@ -88,76 +88,84 @@ function displaySubjectDB() {
 }
 
 function displayTeacherDB() {
-  dataHTML = [];
-  dataHTML.push(`  
-  <h2 class="text-center text-info m-4">教員データ</h2>
-  `);
-  teachers.forEach(function (currentValue, index, array) {
-    let tmp = array.length - 1 - index;
-    dataHTML.push(`
-    <div class="border p-3 mb-3 data-row">
-      <div>
-        <p><strong>教員名:</strong> ${array[tmp]["教員名"]}</p>
-      </div>
-      <div>
-        <p><strong>所属:</strong> ${array[tmp]["所属"]}</p>
-      </div>
-      <div>
-        <p><strong>常勤・非常勤:</strong> ${array[tmp]["常勤・非常勤"]}</p>
-      </div>
-      <div class="delete-teacherButton">
-        <button class="btn btn-secondary" id="teacherDelete`+ array[tmp]["教員ID"] + `">削除</button>
-      </div>
-    </div>
-    `);
+  fetch('/fetch-teachers') // 教員データを取得するAPIのエンドポイントを指定する必要があります
+    .then(response => response.json())
+    .then(data => {
+      console.log("data.teachers:", data.teachers);
+      dataHTML = [];
+      dataHTML.push(`<h2 class="text-center text-info m-4">教員データ</h2>`);
+      data.teachers.forEach(teacher => {
+        dataHTML.push(`
+          <div class="border p-3 mb-3 data-row">
+            <div>
+              <p><strong>教員名:</strong> ${teacher.教員名}</p>
+            </div>
+            <div>
+              <p><strong>所属:</strong> ${teacher.所属}</p>
+            </div>
+            <div>
+              <p><strong>常勤・非常勤:</strong> ${teacher["常勤・非常勤"]}</p>
+            </div>
+            <div class="delete-teacherButton">
+              <button class="btn btn-secondary" id="teacherDelete${teacher.教員ID}">削除</button>
+            </div>
+          </div>
+        `);
+      });
+      dataHTML.push(`
+        <div class="row ">
+          <div class="col-md-4 mb-3">
+            <button onclick="showDown()" class="btn btn-outline-primary btn-lg">閉じる</button>
+          </div>
+        </div>
+      `);
+      dataDisplay.innerHTML = dataHTML.join('');
+      
+      // 削除ボタンのイベントリスナーを追加
+      addTeacherDeleteEvent();
+    })
+    .catch(error => {
+      console.error('Error fetching teacher data:', error);
   });
-  dataHTML.push(`
-  <div class="row ">
-  <div class="col-md-4 mb-3">
-    <button onclick="showDown()" class="btn btn-outline-primary btn-lg">閉じる</button>
-  </div>
-  </div>
-  `);
-  dataDisplay.innerHTML = '';
-  for (var i = 0; i < dataHTML.length; i++) {
-    dataDisplay.innerHTML += dataHTML[i];
-  }
-  addTeacherDeleteEvent();
 }
 
 function displayClassroomDB() {
-  dataHTML = [];
-  dataHTML.push(`  
-  <h2 class="text-center text-info m-4">教室データ</h2>
-  `);
-  classrooms.forEach(function (currentValue, index, array) {
-    let tmp = array.length - 1 - index;
-    dataHTML.push(`
-    <div class="border p-3 mb-3 data-row">
-      <div>
-        <p><strong>科目名:</strong> ${array[tmp]["教室名"]}</p>
-      </div>
-      <div>
-        <p><strong>コマ数:</strong> ${array[tmp]["HR・特別教室"]}</p>
-      </div>
-      <div class="delete-classroomButton">
-        <button class="btn btn-secondary" id="classroomDelete`+ array[tmp]["教室ID"] + `">削除</button>
-      </div>
-    </div>
-    `);
+  fetch('/fetch-classroom') // ここで教室データを取得するAPIのエンドポイントを指定する必要があります
+    .then(response => response.json())
+    .then(data => {
+      console.log("data.classrooms:", data.classrooms);
+      dataHTML = [];
+      dataHTML.push(`<h2 class="text-center text-info m-4">教室データ</h2>`);
+      data.classrooms.forEach(classroom => {
+        dataHTML.push(`
+          <div class="border p-3 mb-3 data-row">
+            <div>
+              <p><strong>教室名:</strong> ${classroom.教室名}</p>
+            </div>
+            <div>
+              <p><strong>HR・特別教室:</strong> ${classroom["HR・特別教室"]}</p>
+            </div>
+            <div class="delete-classroomButton">
+              <button class="btn btn-secondary" id="classroomDelete${classroom.教室ID}">削除</button>
+            </div>
+          </div>
+        `);
+      });
+      dataHTML.push(`
+        <div class="row ">
+          <div class="col-md-4 mb-3">
+            <button onclick="showDown()" class="btn btn-outline-primary btn-lg">閉じる</button>
+          </div>
+        </div>
+      `);
+      dataDisplay.innerHTML = dataHTML.join('');
+      
+      // 削除ボタンのイベントリスナーを追加
+      addClassroomDeleteEvent();
+    })
+    .catch(error => {
+      console.error('Error fetching classroom data:', error);
   });
-  dataHTML.push(`
-  <div class="row ">
-  <div class="col-md-4 mb-3">
-    <button onclick="showDown()" class="btn btn-outline-primary btn-lg">閉じる</button>
-  </div>
-  </div>
-  `);
-  dataDisplay.innerHTML = '';
-  for (var i = 0; i < dataHTML.length; i++) {
-    dataDisplay.innerHTML += dataHTML[i];
-  }
-  addClassroomDeleteEvent();
 }
 
 // 登録ボタンが押されたときに呼び出される関数．---------------------------------------------------
