@@ -28,19 +28,15 @@ app.use(express.static('public'));
 // ルート
 app.get('/', (req, res) => {
   console.log('__dirname:', __dirname);
-  res.join(__dirname, 'public', 'index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // データを取得するエンドポイント
-app.get('https://two024-5-individual-experiment.onrender.com/fetch-data', (req, res) => {
+app.get('/fetch-data', (req, res) => {
   console.log('Received request for /fetch-data'); // リクエストをログに記録
   const query1 = {
     text: "SELECT * FROM コマ表",
   };
-
-  app.use((req, res, next) => {
-    res.status(404).send('Sorry, that route doesn\'t exist.');
-  });
 
   client.query(query1)
     .then(result => {
