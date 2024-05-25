@@ -283,9 +283,7 @@ function addSubjectDeleteEvent(data) {
     document.getElementById("subjectDelete" + subject.科目ID).addEventListener('click', (e) => {
       console.log('subject.科目ID', subject.科目ID);
       // 削除リクエストをサーバーに送信
-      fetch(`/delete-subject`, {
-        method: 'DELETE'
-      })
+      fetch(`/delete-subject`)
       .then(response => {
         if (response.ok) {
           displaySubjectDB(); // データを再取得して表示
