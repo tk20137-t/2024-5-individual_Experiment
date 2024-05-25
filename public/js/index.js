@@ -52,7 +52,7 @@ app.get('/fetch-data', (req, res) => {
 // エラーハンドリング
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Internal Server Error');
+  res.status(500).json({ error: 'Internal Server Error' });
 });
 
 // サーバー起動
