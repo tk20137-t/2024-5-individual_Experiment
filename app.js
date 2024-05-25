@@ -55,7 +55,8 @@ app.get('/fetch-classroom', (req, res) => {
   console.log('Received request for /fetch-classroom');
   const query2 = {
     text: "SELECT * FROM 教室表"
-  }
+  };
+
   client.query(query2)
     .then(result => {
       console.log('result.rows:', result.rows);
@@ -72,7 +73,8 @@ app.delete('/delete-subject/:id', (req, res) => {
   const subjectID = req.params.id;
   const query3 = {
     text: "DELETE FROM 科目表 WHERE subject_id = $1" 
-  }
+  };
+
   client.query(query3, [subjectID])
     .then(result => {
       res.json({ message: 'Subject deleted successfully' });
@@ -87,7 +89,8 @@ app.delete('/delete-teacher/:id', (req, res) => {
   const teacherID = req.params.id;
   const query4 = {
     text :"DELETE FROM 教員表 WHERE teacher_id = $1" 
-  }
+  };
+
   client.query(query4, [teacherID])
     .then(result => {
       res.json({ message: 'Teacher deleted successfully' });
@@ -102,7 +105,8 @@ app.delete('/delete-classroom/:id', (req, res) => {
   const classroomID = req.params.id;
   const query5 = {
     text: "DELETE FROM 教室表 WHERE classroom_id = $1"
-  }
+  };
+
   client.query(query5, [classroomID])
     .then(result => {
       res.json({ message: 'Classroom deleted successfully' });
@@ -118,7 +122,8 @@ app.post('/fetch-subject', (req, res) => {
   const { 科目ID, 科目名, 期間, コマ数 } = req.body;
   const query6 = {
     text: "INSERT INTO 科目表 (subject_id, subject_name, period, koma_count) VALUES ($1, $2, $3, $4)"
-  }
+  };
+
   client.query(query6, [科目ID, 科目名, 期間, コマ数])
     .then(result => {
       res.json({ message: 'Subject added successfully' });
@@ -133,7 +138,8 @@ app.post('/fetch-teacher', (req, res) => {
   const { 教員ID, 教員名, "常勤・非常勤": 所属 } = req.body;
   const query7 = {
     text: "INSERT INTO 教室表 (teacher_id, teacher_name, full_time, affiliation) VALUES ($1, $2, $3, $4)"
-  }
+  };
+
   client.query(query7, [教員ID, 教員名, "常勤・非常勤", 所属])
     .then(result => {
       res.json({ message: 'Teacher added successfully' });
@@ -148,7 +154,8 @@ app.post('/fetch-classroom', (req, res) => {
   const { 教室ID, "HR・特別教室": 教室名 } = req.body;
   const query8 = {
     text: "INSERT INTO 教室表 (classroom_id, hr_special_classroom, classroom_name) VALUES ($1, $2, $3)"
-  }
+  };
+  
   client.query(query8, [教室ID, "HR・特別教室", 教室名])
     .then(result => {
       res.json({ message: 'Classroom added successfully' });
