@@ -42,7 +42,7 @@ function displaySubjectDB() {
   fetch('/fetch-subject')
     .then(response => response.json())
     .then(data => {
-      console.log("data.subject_comas表示:", data.comas);
+      //console.log("data.subject_comas表示:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">科目データ</h2>`);
       data.comas.forEach(subject => {

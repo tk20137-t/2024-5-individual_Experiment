@@ -107,7 +107,7 @@ app.get('/fetch-classroom', (req, res) => {
 });
 
 // データを削除するエンドポイント
-app.delete('/delete-subject', (req, res) => {
+app.delete('/delete-subject/:id', (req, res) => {
   const subjectID = req.params.id;
   console.log(`Deleting subject with ID: ${subjectID}`); // デバッグログ追加
   const query5 = {
