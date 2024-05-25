@@ -6,7 +6,7 @@ let fixedComasInfo = {};
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btn1').addEventListener('click', function () {
         resetTableState(); // テーブルをリセット
-        fetch('/fetch-data')
+        fetch('https://two024-5-individual-experiment.onrender.com/fetch-data')
         .then(response => {
             if (!response.ok) {
                 // レスポンスが成功しなかった場合

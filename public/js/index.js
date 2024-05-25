@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 // データを取得するエンドポイント
-app.get('/fetch-data', (req, res) => {
+app.get('https://two024-5-individual-experiment.onrender.com/fetch-data', (req, res) => {
   console.log('Received request for /fetch-data'); // リクエストをログに記録
   const query1 = {
     text: "SELECT * FROM コマ表",
@@ -63,5 +63,5 @@ app.use((err, req, res, next) => {
 // サーバー起動
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`ここServer listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
