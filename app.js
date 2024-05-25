@@ -111,7 +111,7 @@ app.delete('/delete-subject/:id', (req, res) => {
   const subjectID = req.params.id;
   console.log(`Deleting subject with ID: ${subjectID}`); // デバッグログ追加
   const query5 = {
-    text: "DELETE FROM 科目表 WHERE '科目ID' = $1" 
+    text: "DELETE FROM 科目表 WHERE '科目ID' = subjectID" 
   };
 
   client.query(query5, [subjectID])
