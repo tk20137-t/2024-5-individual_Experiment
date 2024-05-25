@@ -58,7 +58,6 @@ app.get('/fetch-subject', (req, res) => {
   const query2 = {
     text: "SELECT * FROM 科目表"
   };
-  console.log('query2:', query2);
 
   client.query(query2)
     .then(result => {
@@ -108,7 +107,7 @@ app.get('/fetch-classroom', (req, res) => {
 });
 
 // データを削除するエンドポイント
-app.delete('/delete-subject/:id', (req, res) => {
+app.delete('/delete-subject/id', (req, res) => {
   const subjectID = req.params.id;
   console.log(`Deleting subject with ID: ${subjectID}`); // デバッグログ追加
   const query5 = {
