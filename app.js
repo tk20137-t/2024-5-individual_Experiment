@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ルート
 app.get('/', (req, res) => {
   console.log('__dirname:', __dirname);
-  res.sendFile(path.join(__dirname, 'public', 'inpuddata.html'));
+  res.sendFile(path.join(__dirname, 'public', 'inputdata.html'));
 });
 
 // データを取得するエンドポイント

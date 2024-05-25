@@ -42,23 +42,23 @@ function displaySubjectDB() {
   fetch('/fetch-subject')
     .then(response => response.json())
     .then(data => {
-      console.log("data:", data);
+      console.log("data.comas:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">科目データ</h2>`);
-      data.forEach(item => {
+      data.comas.forEach(subject => {
         dataHTML.push(`
           <div class="border p-3 mb-3 data-row">
             <div>
-              <p><strong>科目名:</strong> ${item.subject_name}</p>
+              <p><strong>科目名:</strong> ${subject.科目名}</p>
             </div>
             <div>
-              <p><strong>コマ数:</strong> ${item.lesson_count}</p>
+              <p><strong>コマ数:</strong> ${subject.コマ数}</p>
             </div>
             <div>
-              <p><strong>期間:</strong> ${item.term}</p>
+              <p><strong>期間:</strong> ${subject.期間}</p>
             </div>
             <div class="delete-subjectButton">
-              <button class="btn btn-secondary" id="subjectDelete${item.subject_id}">削除</button>
+              <button class="btn btn-secondary" id="subjectDelete${subject.科目ID}">削除</button>
             </div>
           </div>
         `);
