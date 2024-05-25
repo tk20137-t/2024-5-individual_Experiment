@@ -64,6 +64,9 @@ function displaySubjectDB() {
         `);
       });
       dataDisplay.innerHTML = dataHTML.join('');
+      
+      // 削除ボタンのイベントリスナーを追加
+      addSubjectDeleteEvent();
     })
     .catch(error => {
       console.error('Error fetching subject data:', error);
