@@ -29,7 +29,7 @@ var classroomHTML = [];
 
 //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //このurlを本番環境用に変更する事ですべてのurlは変更されるけど，ここがわからない
-const url = 'http://localhost:3000/';//←←←←←←←←←←←←←←
+const url = 'https://two024-5-individual-experiment.onrender.com/inputdata.html/';//←←←←←←←←←←←←←←
 //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 //データベースはこのURLから管理される
