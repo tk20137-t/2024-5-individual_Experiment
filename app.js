@@ -56,6 +56,7 @@ app.get('/fetch-classroom', (req, res) => {
   const query2 = {
     text: "SELECT * FROM 教室表"
   };
+  console.log('query2:', query2);
 
   client.query(query2)
     .then(result => {
@@ -155,7 +156,7 @@ app.post('/fetch-classroom', (req, res) => {
   const query8 = {
     text: "INSERT INTO 教室表 (classroom_id, hr_special_classroom, classroom_name) VALUES ($1, $2, $3)"
   };
-  
+
   client.query(query8, [教室ID, "HR・特別教室", 教室名])
     .then(result => {
       res.json({ message: 'Classroom added successfully' });
