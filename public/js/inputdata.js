@@ -91,10 +91,10 @@ function displayTeacherDB() {
   fetch('/fetch-teachers') // 教員データを取得するAPIのエンドポイントを指定する必要があります
     .then(response => response.json())
     .then(data => {
-      console.log("data.teachers:", data.teachers);
+      console.log("data.teachers:", data.comas.teachers);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">教員データ</h2>`);
-      data.teachers.forEach(teacher => {
+      data.comas.forEach(teacher => {
         dataHTML.push(`
           <div class="border p-3 mb-3 data-row">
             <div>
@@ -133,10 +133,10 @@ function displayClassroomDB() {
   fetch('/fetch-classroom') // ここで教室データを取得するAPIのエンドポイントを指定する必要があります
     .then(response => response.json())
     .then(data => {
-      console.log("data.classrooms:", data.classrooms);
+      console.log("data.classrooms:", data.comas.classrooms);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">教室データ</h2>`);
-      data.classrooms.forEach(classroom => {
+      data.comas.forEach(classroom => {
         dataHTML.push(`
           <div class="border p-3 mb-3 data-row">
             <div>
