@@ -39,6 +39,15 @@ let dataHTML;
 // DBをゼロから表示しなおす
 
 function displaySubjectDB() {
+  fetch('/fetch-subject')
+    .then(response => response.json())
+    .then(data => {
+      // データを処理して表示する
+      console.log(data); // 例としてコンソールに表示する
+    })
+    .catch(error => {
+      console.error('Error fetching subject data:', error);
+    });
   dataHTML = [];
   dataHTML.push(`  
     <h2 class="text-center text-info m-4">科目データ</h2>

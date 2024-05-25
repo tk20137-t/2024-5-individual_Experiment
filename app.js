@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ルート
 app.get('/', (req, res) => {
   console.log('__dirname:', __dirname);
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'inpuddata.html'));
 });
 
 // データを取得するエンドポイント
@@ -41,6 +41,43 @@ app.get('/fetch-data', (req, res) => {
   };
 
   client.query(query1)
+    .then(result => {
+      console.log('result.rows:', result.rows);
+      res.json({ comas: result.rows });
+    })
+    .catch((e) => {
+      console.error(e.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+
+app.get('/fetch-subject', (req, res) => {
+  console.log('Received request for /fetch-subject');
+  const query2 = {
+    text: "SELECT * FROM 科目表"
+  };
+  console.log('query2:', query2);
+
+  client.query(query2)
+    .then(result => {
+      console.log('result.rows:', result.rows);
+      res.json({ comas: result.rows });
+    })
+    .catch((e) => {
+      console.error(e.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+app.get('/fetch-classroom', (req, res) => {
+  console.log('Received request for /fetch-classroom');
+  const query2 = {
+    text: "SELECT * FROM 教室表"
+  };
+  console.log('query2:', query2);
+
+  client.query(query2)
     .then(result => {
       console.log('result.rows:', result.rows);
       res.json({ comas: result.rows });
