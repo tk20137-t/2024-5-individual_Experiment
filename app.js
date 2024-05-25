@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3001;
