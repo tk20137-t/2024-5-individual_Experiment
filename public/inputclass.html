@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>授業コマ作成</title>
+    <link rel="stylesheet" href="/css/inputclass.css">
+</head>
+<body>
+    <h1>授業コマ作成</h1>
+    <div class="container">
+        <div class="frame">
+            <h2>コマ登録</h2>
+            <form class="classForm" id="classForm">
+                <label for="subject">科目:</label>
+                <select type="text" id="subject" name="subject" required></select><br><br>
+                <option value="" disabled selected>選択してください</option>
+                
+                <label for="teacher">教員:</label>
+                <select type="text" id="teacherList1" name="teacher" required></select>
+                <option value="" disabled selected>選択してください</option>
+                <select type="text" id="teacherList2" name="teacher" required></select><br><br>
+                <option value="" disabled selected>選択してください</option>
+                
+                <label for="class">クラス:</label>
+                <select id="class" name="class"required>
+                    <option value="" disabled selected>選択してください</option>
+                    <!-- 1年目 -->
+                    <option value="1-1">1-1</option>
+                    <option value="1-2">1-2</option>
+                    <option value="1-3">1-3</option>
+                    <option value="1-4">1-4</option>
+                    <option value="1-5">1-5</option>
+                    <!-- 2年目 -->
+                    <option value="2-1">2-1</option>
+                    <option value="2-2">2-2</option>
+                    <option value="2-3">2-3</option>
+                    <option value="2-4">2-4</option>
+                    <option value="2-5">2-5</option>
+                    <!-- 3年目 -->
+                    <option value="3-1">3-1</option>
+                    <option value="3-2">3-2</option>
+                    <option value="3-3">3-3</option>
+                    <option value="3-4">3-4</option>
+                    <option value="3-5">3-5</option>
+                    <!-- 4年目 -->
+                    <option value="4-1">4-1</option>
+                    <option value="4-2">4-2</option>
+                    <option value="4-3">4-3</option>
+                    <option value="4-4">4-4</option>
+                    <option value="4-5">4-5</option>
+                    <!-- 5年目 -->
+                    <option value="5-1">5-1</option>
+                    <option value="5-2">5-2</option>
+                    <option value="5-3">5-3</option>
+                    <option value="5-4">5-4</option>
+                    <option value="5-5">5-5</option>
+                    <!-- 6年目 -->
+                    <option value="6-1">6-1</option>
+                    <option value="6-2">6-2</option>
+                    <option value="6-3">6-3</option>
+                    <option value="6-4">6-4</option>
+                    <!-- 7年目 -->
+                    <option value="7-1">7-1</option>
+                    <option value="7-2">7-2</option>
+                    <option value="7-3">7-3</option>
+                    <option value="7-4">7-4</option>
+                </select><br><br>
+                
+                <label for="classroom">教室:</label>
+                <select type="text" id="classroom" name="classroom" required></select><br><br>
+                <option value="" disabled selected>選択してください</option>
+                
+                <label for="time">実施時間:</label>
+                <input type="text" id="time" name="time" required></input>
+                <option value="" disabled selected>選択してください</option>
+                <input type="text" id="time2" name="time2" required></input><br><br>
+                <option value="" disabled selected>選択してください</option>
+
+                <label for="time">曜日:</label>
+                <select id="dayOfWeek" name="dayOfWeek" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <option value="月曜日">月曜日</option>
+                    <option value="火曜日">火曜日</option>
+                    <option value="水曜日">水曜日</option>
+                    <option value="木曜日">木曜日</option>
+                    <option value="金曜日">金曜日</option>
+                </select><br><br>
+                
+                <button type="button" id="registerBtn">登録</button>
+            </form>
+        </div>
+        <div class="frame">
+            <h2>優先順位付け</h2>
+            <h4>固定コマ</h4>
+            <div id="kotei">
+                <!-- 授業コマの表示 -->
+            </div>
+            <h4>通常のコマ(優先度の高い順)</h4>
+            <div id="sortable">
+                <!-- 授業コマの表示 -->
+            </div>
+            <button type="button" id="confirmBtn">確定</button>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button onclick="location.href='inputdata.html'" id="inputdata">基礎データ入力画面へ</button>
+        <button onclick="location.href='index.html'" id="composition">時間割編成画面へ</button>
+    </div>
+
+    <script src="/js/inputclass.js"></script>
+</body>
+</html>

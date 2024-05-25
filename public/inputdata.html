@@ -1,0 +1,123 @@
+<!-- inputdata.html -->
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>時間割管理システム</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <meta name="description" content="時間割管理システム">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+
+  <style>
+    .data-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .data-row>div {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+  <div class="mt-3 container w-75">
+    <h1 class="text-center text-info m-4">基礎データ入力画面</h1>
+    <form id="dataForm" class="mt-4">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="p-3 border">
+            <label for="subject" class="mt-1">科目名:</label>
+            <input type="text" id="subject" name="subject" class="mt-2 form-control">
+            <div id="subjectError" id="savedData"></div><br>
+            <label for="subjectTime" class="mt-1">コマ時間数:</label>
+            <select id="subjectTime" name="subjectTime" class="mt-2 form-control">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select><br>
+            <label for="subjectTerm" class="mt-1">期間:</label>
+            <select id="subjectTerm" name="subjectTerm" class="mt-2 form-control">
+              <option value="前期">前期</option>
+              <option value="後期">後期</option>
+              <option value="通年">通年</option>
+            </select><br>
+            <input type="submit" id="submitSubject" value="科目保存" class="mb-2 btn btn-outline-info">
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="p-3 border">
+            <label for="teacher" class="mt-1">教員名:</label>
+            <input type="text" id="teacher" name="teacher" class="mt-2 form-control">
+            <div id="teacherError" id="savedData"></div><br>
+            <label for="teacherAffiliation" class="mt-1">所属:</label>
+            <select id="teacherAffiliation" name="teacherAffiliation" class="mt-2 form-control">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+            </select><br>
+            <label for="teacherTime" class="mt-1">常勤・非常勤:</label>
+            <select id="teacherTime" name="teacherTime" class="mt-2 form-control">
+              <option value="true">常勤</option>
+              <option value="false">非常勤</option>
+            </select><br>
+            <input type="submit" id="submitTeacher" value="教員保存" class="mb-2 btn btn-outline-info">
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="p-3 border">
+            <label for="classroom" class="mt-1">教室名:</label>
+            <input type="text" id="classroom" name="classroom" class="mt-2 form-control">
+            <div id="classroomError" id="savedData"></div><br>
+            <label for="classroomHR" class="mt-1">使用する教室:</label>
+            <select id="classroomHR" name="classroomHR" class="mt-2 form-control">
+              <option value="特別教室">特別教室</option>
+              <option value="HR">HR</option>
+            </select><br>
+            <input type="submit" id="submitClassroom" value="教室保存" class="mb-2 btn btn-outline-info">
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="row ">
+      <div class="col-md-4 mb-3">
+        <button onclick="showSavedSubjects()" class="btn btn-outline-primary btn-lg">保存された科目を表示する</button>
+      </div>
+      <div class="col-md-4 mb-3">
+        <button onclick="showSavedTeachers()" class="btn btn-outline-primary btn-lg">保存された教員を表示する</button>
+      </div>
+      <div class="col-md-4 mb-3">
+        <button onclick="showSavedClassrooms()" class="btn btn-outline-primary btn-lg">保存された教室を表示する</button>
+      </div>
+    </div>
+
+    <div id="savedData" class="mt-4">
+      <div id="dataDisplay"></div>
+    </div>
+
+    <div class="text-center mt-3">
+      <input type="button" onclick="location.href='inputclass.html'" value="コマ入力フォームへ" class="btn btn-secondary m-2 px-4 py-2">
+      <input type="button" onclick="location.href='index.html'" value="時間割編成画面へ" class="btn btn-secondary m-2 px-4 py-2">
+    </div>
+  </div>
+
+  <script src="..\src\inputdata.js"></script>
+
+</body>
+
+</html>

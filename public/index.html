@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
+
+<head>
+  <meta charset="utf-8" />
+  <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
+
+  <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
+
+  <title>React App</title>
+
+ <!-- CSSファイルをリンク -->
+ <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>時間割編成画面</h1>
+
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th rowspan="3">学年</th>
+          <th rowspan="3">クラス</th>
+          <th colspan="40">曜日</th>
+        </tr>
+        <tr>
+          <!-- 曜日ヘッダーを追加 -->
+          <th colspan="8">月曜日</th>
+          <th colspan="8">火曜日</th>
+          <th colspan="8">水曜日</th>
+          <th colspan="8">木曜日</th>
+          <th colspan="8">金曜日</th>
+        </tr>
+        <tr>
+          <!-- 1から8までの時限をループで表示 -->
+          <script>
+            for(var i = 1; i <= 5; i++){
+              for (var j = 1; j <= 8; j++) {
+                document.write('<td>' + j + '</td>');
+              }
+            }
+          </script>
+        </tr>
+      </thead>
+      <tbody id="data-body">
+        <!-- ここにJavaScriptでテーブルの内容を挿入します -->
+      </tbody>
+    </table>
+
+      <button type="button" id="btn1" style="float: right;">時間割編成</button>
+
+    <input type="button" onclick="location.href='inputclass.html'
+        " value="コマ入力フォームへ">
+    <input type="button" onclick="location.href='inputdata.html'
+        " value="基礎データ入力画面">
+      <button type="button"  id="export-btn" style="float: right;">Exvcelエクスポート</button>
+  </div>
+  <script type="text/javascript" src="js/data.js"></script>
+
+  <script type="text/javascript">
+    // JavaScriptでテーブルを動的に生成する
+    var tableBody = document.getElementById('data-body');
+    var tableContent = '';
+
+    for (var grade = 1; grade <= 7; grade++) {
+      var firstClass = true; // 各学年の最初のクラスかどうかを示すフラグ
+      for (var classNum = 1; classNum <= (grade >= 6 ? 4 : 5); classNum++) { // 第6学年と第7学年は4組だけにする
+        tableContent += '<tr>';
+        
+        if (firstClass) {
+          tableContent += '<td rowspan="' + (grade >= 6 ? 4 : 5) + '">' + grade + '学年</td>';
+          firstClass = false; // フラグを更新して次のクラスでは学年を表示しないようにする
+        }
+
+        tableContent += '<td>' + classNum + '組</td>';
+        
+        for (var day = 0; day < 5; day++) {
+          for (var period = 0; period < 8; period +=2) {
+            tableContent += '<td colspan="2" width="20"></td>';
+          }
+        }
+
+        tableContent += '</tr>';
+      }
+    }
+
+    tableBody.innerHTML = tableContent;
+  </script>
+
+</html>
