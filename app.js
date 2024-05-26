@@ -163,15 +163,27 @@ app.delete('/delete-classroom/:id', (req, res) => {
 
 // 新しいデータを追加するエンドポイント
 app.post('/save-subject', (req, res) => {
-  const { 科目ID, 科目名, 期間, コマ数 } = req.body;
-  const query8 = {
-    text:  'INSERT INTO "科目表" ("科目ID", "科目名", "期間", "コマ数") VALUES ($1, $2, $3, $4)',
-    values: [科目ID, 科目名, 期間, コマ数]
+  // 最大の科目IDを取得するクエリ
+  const queryMaxID = {
+    text: 'SELECT MAX("科目ID") AS max_id FROM "科目表"'
   };
-
-  client.query(query8)
+  // 最大の科目IDを取得して新しいIDを生成し、そのIDでデータを追加する処理
+  client.query(queryMaxID)
     .then(result => {
-      console.log('Query result:', result); // デバッグログ追加
+      const maxID = result.rows[0].max_id || 0; // 最大IDを取得し、存在しない場合は0をセット
+      const newSubjectID = maxID + 1; // 新しいIDを計算
+
+      // 新しいデータを追加するクエリ
+      const { 科目名, 期間, コマ数 } = req.body;
+      const queryAddSubject = {
+        text: 'INSERT INTO "科目表" ("科目ID", "科目名", "期間", "コマ数") VALUES ($1, $2, $3, $4)',
+        values: [newSubjectID, 科目名, 期間, コマ数]
+      };
+
+      // 新しいデータをデータベースに追加
+      return client.query(queryAddSubject);
+    })
+    .then(() => {
       res.json({ message: 'Subject added successfully' });
     })
     .catch((e) => {
@@ -181,10 +193,10 @@ app.post('/save-subject', (req, res) => {
 });
 
 app.post('/save-teacher', (req, res) => {
-  const {教員名, 勤務形態, 所属 } = req.body;
+  const { 教員ID, 教員名, 勤務形態, 所属 } = req.body;
   const query9 = {
-    text: 'INSERT INTO "教員表" ("教員名", "勤務形態", "所属") VALUES ($1, $2, $3)',
-    values: [教員名, 勤務形態, 所属]
+    text: 'INSERT INTO "教員表" ("教員ID", "教員名", "勤務形態", "所属") VALUES ($1, $2, $3, $4)',
+    values: [教員ID, 教員名, 勤務形態, 所属]
   };
 
   client.query(query9)
