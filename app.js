@@ -116,7 +116,7 @@ app.delete('/delete-subject/:id', (req, res) => {
 
   client.query(query5, [subjectID])
     .then(result => {
-      console.log('Query result:', result); // デバッグログ追加
+      //console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Subject deleted successfully' });
     })
     .catch((e) => {
@@ -134,7 +134,7 @@ app.delete('/delete-teacher/:id', (req, res) => {
 
   client.query(query6, [teacherID])
     .then(result => {
-      console.log('Query result:', result); // デバッグログ追加
+      //console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Teacher deleted successfully' });
     })
     .catch((e) => {
@@ -152,7 +152,7 @@ app.delete('/delete-classroom/:id', (req, res) => {
 
   client.query(query7, [classroomID])
     .then(result => {
-      console.log('Query result:', result); // デバッグログ追加
+      //console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Classroom deleted successfully' });
     })
     .catch((e) => {
@@ -162,14 +162,16 @@ app.delete('/delete-classroom/:id', (req, res) => {
 });
 
 // 新しいデータを追加するエンドポイント
-app.post('/fetch-subject', (req, res) => {
+app.post('/save-subject', (req, res) => {
   const { 科目ID, 科目名, 期間, コマ数 } = req.body;
   const query8 = {
-    text: "INSERT INTO 科目表 (subject_id, subject_name, period, koma_count) VALUES ($1, $2, $3, $4)"
+    text:  'INSERT INTO "科目表" ("科目ID", "科目名", "期間", "コマ数") VALUES ($1, $2, $3, $4)',
+    values: [科目ID, 科目名, 期間, コマ数]
   };
 
-  client.query(query8, [科目ID, 科目名, 期間, コマ数])
+  client.query(query8)
     .then(result => {
+      console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Subject added successfully' });
     })
     .catch((e) => {
@@ -178,14 +180,16 @@ app.post('/fetch-subject', (req, res) => {
     });
 });
 
-app.post('/fetch-teacher', (req, res) => {
+app.post('/save-teacher', (req, res) => {
   const { 教員ID, 教員名, "常勤・非常勤": 所属 } = req.body;
   const query9 = {
-    text: "INSERT INTO 教室表 (teacher_id, teacher_name, full_time, affiliation) VALUES ($1, $2, $3, $4)"
+    text: 'INSERT INTO "教員表" ("教員ID", "教員名", "常勤・非常勤", "所属") VALUES ($1, $2, $3, $4)',
+    values: [教員ID, 教員名, "常勤・非常勤", 所属]
   };
 
-  client.query(query9, [教員ID, 教員名, "常勤・非常勤", 所属])
+  client.query(query9)
     .then(result => {
+      console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Teacher added successfully' });
     })
     .catch((e) => {
@@ -194,14 +198,16 @@ app.post('/fetch-teacher', (req, res) => {
     });
 });
 
-app.post('/fetch-classroom', (req, res) => {
+app.post('/save-classroom', (req, res) => {
   const { 教室ID, "HR・特別教室": 教室名 } = req.body;
   const query10 = {
-    text: "INSERT INTO 教室表 (classroom_id, hr_special_classroom, classroom_name) VALUES ($1, $2, $3)"
+    text: 'INSERT INTO "教室表" ("教室ID", "教室名", "HR・特別教室") VALUES ($1, $2, $3)',
+    values: [教室ID, 教室名, "HR・特別教室"]
   };
 
-  client.query(query10, [教室ID, "HR・特別教室", 教室名])
+  client.query(query10)
     .then(result => {
+      console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Classroom added successfully' });
     })
     .catch((e) => {

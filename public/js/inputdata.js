@@ -84,7 +84,7 @@ function displayTeacherDB() {
   fetch('/fetch-teachers') // 教員データを取得するAPIのエンドポイントを指定する必要があります
     .then(response => response.json())
     .then(data => {
-      console.log("data.teachers_comas表示:", data.comas);
+      //console.log("data.teachers_comas表示:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">教員データ</h2>`);
       data.comas.forEach(teacher => {
@@ -126,7 +126,7 @@ function displayClassroomDB() {
   fetch('/fetch-classroom') // ここで教室データを取得するAPIのエンドポイントを指定する必要があります
     .then(response => response.json())
     .then(data => {
-      console.log("data.classroom_comas表示:", data.comas);
+      //console.log("data.classroom_comas表示:", data.comas);
       dataHTML = [];
       dataHTML.push(`<h2 class="text-center text-info m-4">教室データ</h2>`);
       data.comas.forEach(classroom => {
@@ -171,34 +171,37 @@ $submitSubject.addEventListener('click', (e) => {
     return;
   }
 
-  // 新しい科目データのIDを取得
-  let newSubjectID;
-  for (let i = 1, t = true; i <= subjects.length; i++) {
-    t = true;
-    subjects.forEach(function (currentValue, index, array) {
-      if (array[index]["科目ID"] == i)
-        t = false;
-    });
-    if (t) {
-      newSubjectID = i;
-      break;
-    }
-  }
+   // 新しい科目データのIDを取得
+   let newSubjectID = subjects.length + 1;
 
-  subjects.push({
-    科目ID: newSubjectID,
-    科目名: $subject.value,
-    期間: $subjectTerm.value,
-    コマ数: $subjectTime.value
-  });
-
-  Onsubject = true;
-  Onteacher = false;
-  Onclassroom = false;
-  displaySubjectDB();
-  // フォームの入力値をリセット
-  $subject.value = '';
-});
+   const newSubject = {
+     科目ID: newSubjectID,
+     科目名: $subject.value,
+     期間: $subjectTerm.value,
+     コマ数: $subjectTime.value
+   };
+ 
+   fetch('/save-subject', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify(newSubject)
+   })
+   .then(response => response.json())
+   .then(data => {
+     console.log(data.message);
+     subjects.push(newSubject);
+     Onsubject = true;
+     Onteacher = false;
+     Onclassroom = false;
+     displaySubjectDB();
+     $subject.value = '';
+   })
+   .catch(error => {
+     console.error('Error saving subject:', error);
+   });
+ });
 
 // 教員の保存ボタンが押されたら
 $submitTeacher.addEventListener('click', (e) => {
@@ -303,6 +306,7 @@ function addSubjectDeleteEvent(data) {
 function addTeacherDeleteEvent(data) {
   data.comas.forEach(teacher => {
     document.getElementById("teacherDelete" + teacher.教員ID).addEventListener('click', (e) => {
+      console.log('teacher.教員ID', teacher.教員ID);
       // 削除リクエストをサーバーに送信
       fetch(`/delete-teacher/${teacher.教員ID}`, {
         method: 'DELETE'
@@ -324,6 +328,7 @@ function addTeacherDeleteEvent(data) {
 function addClassroomDeleteEvent(data) {
   data.comas.forEach(classroom => {
     document.getElementById("classroomDelete" + classroom.教室ID).addEventListener('click', (e) => {
+      console.log('classroom.教室ID', classroom.教室ID);
       // 削除リクエストをサーバーに送信
       fetch(`/delete-classroom/${classroom.教室ID}`, {
         method: 'DELETE'
