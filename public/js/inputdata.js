@@ -172,7 +172,7 @@ $submitSubject.addEventListener('click', (e) => {
   }
 
    // 新しい科目データのIDを取得
-   //let newSubjectID = subjects.length + 1;
+   let newSubjectID = subjects.length + 1;
 
    const newSubject = {
      //科目ID: newSubjectID,

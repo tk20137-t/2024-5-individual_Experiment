@@ -181,10 +181,10 @@ app.post('/save-subject', (req, res) => {
 });
 
 app.post('/save-teacher', (req, res) => {
-  const { 教員ID, 教員名, 勤務形態, 所属 } = req.body;
+  const {教員名, 勤務形態, 所属 } = req.body;
   const query9 = {
-    text: 'INSERT INTO "教員表" ("教員ID", "教員名", "勤務形態", "所属") VALUES ($1, $2, $3, $4)',
-    values: [教員ID, 教員名, 勤務形態, 所属]
+    text: 'INSERT INTO "教員表" ("教員名", "勤務形態", "所属") VALUES ($1, $2, $3)',
+    values: [教員名, 勤務形態, 所属]
   };
 
   client.query(query9)
