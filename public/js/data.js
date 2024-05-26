@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Fetched data:', data);
             alert('時間割を編成しました。');//動作確認用
             const table = document.getElementById('data-table');
+            console.log('table:', table);
             const tbody = table.querySelector('tbody');
             
             if(data.comas) {
