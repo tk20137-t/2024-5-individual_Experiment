@@ -172,10 +172,10 @@ $submitSubject.addEventListener('click', (e) => {
   }
 
    // 新しい科目データのIDを取得
-   let newSubjectID = subjects.length + 1;
+   //let newSubjectID = subjects.length + 1;
 
    const newSubject = {
-     科目ID: newSubjectID,
+     //科目ID: newSubjectID,
      科目名: $subject.value,
      期間: $subjectTerm.value,
      コマ数: $subjectTime.value
@@ -213,10 +213,10 @@ $submitTeacher.addEventListener('click', (e) => {
   }
 
   // 新しい先生データのIDを取得
-  let newTeacherID = teachers.length + 1;
+  //let newTeacherID = teachers.length + 1;
 
   const newTeacher = {
-    教員ID: newTeacherID,
+    //教員ID: newTeacherID,
     教員名: $teacher.value,
     勤務形態: $teacherTime.value,
     所属: $teacherAffiliation.value
@@ -254,10 +254,10 @@ $submitClassroom.addEventListener('click', (e) => {
   }
 
   // 新しい教室データのIDを取得
-  let newClassroomID = classrooms.length + 1;
+  //let newClassroomID = classrooms.length + 1;
 
   const newClassroom = {
-    教室ID: newClassroomID,
+    //教室ID: newClassroomID,
     教室名: $classroom.value,
     教室設定: $classroomHR.value
   };
