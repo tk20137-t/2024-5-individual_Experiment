@@ -127,12 +127,14 @@ app.delete('/delete-subject/:id', (req, res) => {
 
 app.delete('/delete-teacher/:id', (req, res) => {
   const teacherID = req.params.id;
+  console.log(`Deleting teacher with ID: ${teacherID}`); // デバッグログ追加
   const query6 = {
-    text :"DELETE FROM 教員表 WHERE 教員ID = $1" 
+    text :'DELETE FROM 教員表 WHERE "教員ID" = $1' 
   };
 
   client.query(query6, [teacherID])
     .then(result => {
+      console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Teacher deleted successfully' });
     })
     .catch((e) => {
@@ -143,12 +145,14 @@ app.delete('/delete-teacher/:id', (req, res) => {
 
 app.delete('/delete-classroom/:id', (req, res) => {
   const classroomID = req.params.id;
+  console.log(`Deleting classroom with ID: ${classroomID}`); // デバッグログ追加
   const query7 = {
-    text: "DELETE FROM 教室表 WHERE 教室ID = $1"
+    text: 'DELETE FROM 教室表 WHERE "教室ID" = $1'
   };
 
   client.query(query7, [classroomID])
     .then(result => {
+      console.log('Query result:', result); // デバッグログ追加
       res.json({ message: 'Classroom deleted successfully' });
     })
     .catch((e) => {

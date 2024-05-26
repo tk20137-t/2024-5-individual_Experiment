@@ -301,10 +301,10 @@ function addSubjectDeleteEvent(data) {
 }
 
 function addTeacherDeleteEvent() {
-  teachers.forEach(function (currentValue, index, array) {
-    document.getElementById("teacherDelete" + array[index]["教員ID"]).addEventListener('click', (e) => {
+  data.comas.forEach(teacher => {
+    document.getElementById("teacherDelete" + teacher.教員ID).addEventListener('click', (e) => {
       // 削除リクエストをサーバーに送信
-      fetch(`/delete-teacher/${array[index]["教員ID"]}`, {
+      fetch(`/delete-teacher/${ateacher.教員ID}`, {
         method: 'DELETE'
       })
       .then(response => {
@@ -322,10 +322,10 @@ function addTeacherDeleteEvent() {
 }
 
 function addClassroomDeleteEvent() {
-  classrooms.forEach(function (currentValue, index, array) {
-    document.getElementById("classroomDelete" + array[index]["教室ID"]).addEventListener('click', (e) => {
+  data.comas.forEach(classroom => {
+    document.getElementById("classroomDelete" + classroom.教室ID).addEventListener('click', (e) => {
       // 削除リクエストをサーバーに送信
-      fetch(`/delete-classroom/${array[index]["教室ID"]}`, {
+      fetch(`/delete-classroom/${classroom.教室ID}`, {
         method: 'DELETE'
       })
       .then(response => {
