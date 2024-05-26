@@ -213,33 +213,35 @@ $submitTeacher.addEventListener('click', (e) => {
   }
 
   // 新しい先生データのIDを取得
-  let newTeacherId;
-  for (let i = 1, t = true; i <= teachers.length; i++) {
-    t = true;
-    teachers.forEach(function (currentValue, index, array) {
-      if (array[index]["教員ID"] == i)
-        t = false;
-    });
-    if (t) {
-      newTeacherId = i;
-      break;
-    }
-  }
+  let newTeacherID = teachers.length + 1;
 
-  teachers.push({
-    教員ID: newTeacherId,
+  const newTeacher = {
+    教員ID: newTeacherID,
     教員名: $teacher.value,
-    "常勤・非常勤": $teacherTime.value == '常勤',
+    "常勤・非常勤": $teacherTime.value,
     所属: $teacherAffiliation.value
+  };
+
+  fetch('/save-teacher', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newTeacher)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.message);
+    teachers.push(newTeacher);
+    Onsubject = false;
+    Onteacher = true;
+    Onclassroom = false;
+    displayTeacherDB();
+    $teacher.value = '';
+  })
+  .catch(error => {
+    console.error('Error saving teacher:', error);
   });
-
-  Onsubject = false;
-  Onteacher = true;
-  Onclassroom = false;
-  displayTeacherDB();
-
-  $teacher.value = '';
-
 });
 
 // 教室の保存ボタンが押されたら
@@ -252,32 +254,34 @@ $submitClassroom.addEventListener('click', (e) => {
   }
 
   // 新しい教室データのIDを取得
-  let newClassroomId;
-  for (let i = 1, t = true; i <= classrooms.length; i++) {
-    t = true;
-    classrooms.forEach(function (currentValue, index, array) {
-      if (array[index]["教室ID"] == i)
-        t = false;
-    });
-    if (t) {
-      newClassroomId = i;
-      break;
-    }
-  }
+  let newClassroomID = classrooms.length + 1;
 
-  classrooms.push({
-    教室ID: newClassroomId,
+  const newClassroom = {
+    教室ID: newClassroomID,
     教室名: $classroom.value,
     "HR・特別教室": $classroomHR.value
+  };
+
+  fetch('/save-classroom', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newClassroom)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.message);
+    classrooms.push(newClassroom);
+    Onsubject = false;
+    Onteacher = false;
+    Onclassroom = true;
+    displayClassroomDB();
+    $classroom.value = '';
+  })
+  .catch(error => {
+    console.error('Error saving classroom:', error);
   });
-
-  Onsubject = false;
-  Onteacher = false;
-  Onclassroom = true;
-  displayClassroomDB();
-
-  $classroom.value = '';
-
 });
 
 // 削除ボタンが押されたときに呼び出される関数．----------------------------------------------
