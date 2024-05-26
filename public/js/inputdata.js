@@ -115,7 +115,7 @@ function displayTeacherDB() {
       dataDisplay.innerHTML = dataHTML.join('');
       
       // 削除ボタンのイベントリスナーを追加
-      addTeacherDeleteEvent();
+      addTeacherDeleteEvent(data);
     })
     .catch(error => {
       console.error('Error fetching teacher data:', error);
@@ -154,7 +154,7 @@ function displayClassroomDB() {
       dataDisplay.innerHTML = dataHTML.join('');
       
       // 削除ボタンのイベントリスナーを追加
-      addClassroomDeleteEvent();
+      addClassroomDeleteEvent(data);
     })
     .catch(error => {
       console.error('Error fetching classroom data:', error);
@@ -300,7 +300,7 @@ function addSubjectDeleteEvent(data) {
   });
 }
 
-function addTeacherDeleteEvent() {
+function addTeacherDeleteEvent(data) {
   data.comas.forEach(teacher => {
     document.getElementById("teacherDelete" + teacher.教員ID).addEventListener('click', (e) => {
       // 削除リクエストをサーバーに送信
@@ -321,7 +321,7 @@ function addTeacherDeleteEvent() {
   });
 }
 
-function addClassroomDeleteEvent() {
+function addClassroomDeleteEvent(data) {
   data.comas.forEach(classroom => {
     document.getElementById("classroomDelete" + classroom.教室ID).addEventListener('click', (e) => {
       // 削除リクエストをサーバーに送信
