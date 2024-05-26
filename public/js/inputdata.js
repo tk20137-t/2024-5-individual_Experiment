@@ -218,7 +218,7 @@ $submitTeacher.addEventListener('click', (e) => {
   const newTeacher = {
     教員ID: newTeacherID,
     教員名: $teacher.value,
-    "常勤・非常勤": $teacherTime.value,
+    勤務形態: $teacherTime.value,
     所属: $teacherAffiliation.value
   };
 
@@ -259,7 +259,7 @@ $submitClassroom.addEventListener('click', (e) => {
   const newClassroom = {
     教室ID: newClassroomID,
     教室名: $classroom.value,
-    "HR・特別教室": $classroomHR.value
+    教室設定: $classroomHR.value
   };
 
   fetch('/save-classroom', {

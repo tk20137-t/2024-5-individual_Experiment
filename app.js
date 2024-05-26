@@ -181,10 +181,10 @@ app.post('/save-subject', (req, res) => {
 });
 
 app.post('/save-teacher', (req, res) => {
-  const { 教員ID, 教員名, "常勤・非常勤": 所属 } = req.body;
+  const { 教員ID, 教員名, 勤務形態, 所属 } = req.body;
   const query9 = {
-    text: 'INSERT INTO "教員表" ("教員ID", "教員名", "常勤・非常勤", "所属") VALUES ($1, $2, $3, $4)',
-    values: [教員ID, 教員名, "常勤・非常勤", 所属]
+    text: 'INSERT INTO "教員表" ("教員ID", "教員名", "勤務形態", "所属") VALUES ($1, $2, $3, $4)',
+    values: [教員ID, 教員名, 勤務形態, 所属]
   };
 
   client.query(query9)
@@ -199,10 +199,10 @@ app.post('/save-teacher', (req, res) => {
 });
 
 app.post('/save-classroom', (req, res) => {
-  const { 教室ID, "HR・特別教室": 教室名 } = req.body;
+  const { 教室ID, 教室設定, 教室名 } = req.body;
   const query10 = {
-    text: 'INSERT INTO "教室表" ("教室ID", "教室名", "HR・特別教室") VALUES ($1, $2, $3)',
-    values: [教室ID, 教室名, "HR・特別教室"]
+    text: 'INSERT INTO "教室表" ("教室ID", "教室名", "教室設定") VALUES ($1, $2, $3)',
+    values: [教室ID, 教室名, 教室設定]
   };
 
   client.query(query10)
