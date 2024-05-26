@@ -219,6 +219,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // 対象のセルを取得
+        if (rowNumber >= table.rows.length || colNumber >= table.rows[rowNumber].cells.length) {
+            console.error(`無効なセル位置。行番号: ${rowNumber}, 列番号: ${colNumber}`);
+            return;
+        }
+
         const cell = table.rows[rowNumber].cells[colNumber];
 
         const periodTime = finishTime - startTime + 1;
