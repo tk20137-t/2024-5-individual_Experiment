@@ -193,15 +193,28 @@ app.post('/save-subject', (req, res) => {
 });
 
 app.post('/save-teacher', (req, res) => {
-  const { 教員ID, 教員名, 勤務形態, 所属 } = req.body;
-  const query9 = {
-    text: 'INSERT INTO "教員表" ("教員ID", "教員名", "勤務形態", "所属") VALUES ($1, $2, $3, $4)',
-    values: [教員ID, 教員名, 勤務形態, 所属]
+  // 最大の教員IDを取得するクエリ
+  const queryMaxID = {
+    text: 'SELECT MAX("教員ID") AS max_id FROM "教員表"'
   };
 
-  client.query(query9)
+  // 最大の教員IDを取得して新しいIDを生成し、そのIDでデータを追加する処理
+  client.query(queryMaxID)
     .then(result => {
-      console.log('Query result:', result); // デバッグログ追加
+      const maxID = result.rows[0].max_id || 0; // 最大IDを取得し、存在しない場合は0をセット
+      const newTeacherID = maxID + 1; // 新しいIDを計算
+
+      // 新しいデータを追加するクエリ
+      const { 教員名, 勤務形態, 所属 } = req.body;
+      const queryAddTeacher = {
+        text: 'INSERT INTO "教員表" ("教員ID", "教員名", "勤務形態", "所属") VALUES ($1, $2, $3, $4)',
+        values: [newTeacherID, 教員名, 勤務形態, 所属]
+      };
+
+      // 新しいデータをデータベースに追加
+      return client.query(queryAddTeacher);
+    })
+    .then(() => {
       res.json({ message: 'Teacher added successfully' });
     })
     .catch((e) => {
@@ -211,15 +224,28 @@ app.post('/save-teacher', (req, res) => {
 });
 
 app.post('/save-classroom', (req, res) => {
-  const { 教室ID, 教室設定, 教室名 } = req.body;
-  const query10 = {
-    text: 'INSERT INTO "教室表" ("教室ID", "教室名", "教室設定") VALUES ($1, $2, $3)',
-    values: [教室ID, 教室名, 教室設定]
+  // 最大の教室IDを取得するクエリ
+  const queryMaxID = {
+    text: 'SELECT MAX("教室ID") AS max_id FROM "教室表"'
   };
 
-  client.query(query10)
+  // 最大の教室IDを取得して新しいIDを生成し、そのIDでデータを追加する処理
+  client.query(queryMaxID)
     .then(result => {
-      console.log('Query result:', result); // デバッグログ追加
+      const maxID = result.rows[0].max_id || 0; // 最大IDを取得し、存在しない場合は0をセット
+      const newClassroomID = maxID + 1; // 新しいIDを計算
+
+      // 新しいデータを追加するクエリ
+      const { 教室名, 教室設定 } = req.body;
+      const queryAddClassroom = {
+        text: 'INSERT INTO "教室表" ("教室ID", "教室名", "教室設定") VALUES ($1, $2, $3)',
+        values: [newClassroomID, 教室名, 教室設定]
+      };
+
+      // 新しいデータをデータベースに追加
+      return client.query(queryAddClassroom);
+    })
+    .then(() => {
       res.json({ message: 'Classroom added successfully' });
     })
     .catch((e) => {
