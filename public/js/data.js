@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error(`無効なセル位置。行番号: ${rowNumber}, 列番号: ${colNumber}`);
             return;
         }
-
+        console.log("rowNumber:", rowNumber);
         const cell = table.rows[rowNumber].cells[colNumber];
 
         const periodTime = finishTime - startTime + 1;
