@@ -304,7 +304,7 @@ function addTeacherDeleteEvent(data) {
   data.comas.forEach(teacher => {
     document.getElementById("teacherDelete" + teacher.教員ID).addEventListener('click', (e) => {
       // 削除リクエストをサーバーに送信
-      fetch(`/delete-teacher/${ateacher.教員ID}`, {
+      fetch(`/delete-teacher/${teacher.教員ID}`, {
         method: 'DELETE'
       })
       .then(response => {
