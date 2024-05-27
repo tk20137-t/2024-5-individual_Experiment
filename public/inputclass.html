@@ -71,6 +71,10 @@
                 <select type="text" id="classroom" name="classroom" required></select><br><br>
                 <option value="" disabled selected>選択してください</option>
                 
+                <label>
+                    <input type="checkbox" id="fixedClassCheckbox"> 固定コマを入力する
+                </label>
+                <div id="fixedClassForm" style="display: none;">
                 <label for="time">実施時間:</label>
                 <select type="text" id="time" name="time" required>
                 <option value="" disabled selected>選択してください(固定コマの場合のみ)</option>
@@ -103,7 +107,21 @@
                     <option value="木曜日">木曜日</option>
                     <option value="金曜日">金曜日</option>
                 </select><br><br>
+                </div>
+
+                <script>
+                    const fixedClassCheckbox = document.getElementById('fixedClassCheckbox');
+                    const fixedClassForm = document.getElementById('fixedClassForm');
                 
+                    fixedClassCheckbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            fixedClassForm.style.display = 'block';
+                        } else {
+                            fixedClassForm.style.display = 'none';
+                        }
+                    });
+                </script>
+
                 <button type="button" id="registerBtn">登録</button>
             </form>
         </div>
