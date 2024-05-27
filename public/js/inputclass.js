@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const sortable = document.getElementById('sortable');
     const registerBtn = document.getElementById('registerBtn');
     const confirmBtn = document.getElementById('confirmBtn');
-    const kotei = document.getElementById('kotei'); // 固定コマ用の要素
 
     async function fetchTeachers() {
         try {
@@ -282,15 +281,23 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         const time1 = timeInput1.value.trim();
         const time2 = timeInput2.value.trim();
         const dayOfWeek = dayOfWeekSelect.value.trim();
-
-        if (subjectName && teacherName1 && timeValue1 && classValue && classroomName && dayValue) {
-            // 重複チェック
-            if (isDuplicateKoteiKoma(dayValue, timeValue1)) {
+        fetch('https://two024-5-individual-experiment.onrender.com/fetch-data')
+        .then(response => {
+            if (!response.ok) {
+                // レスポンスが成功しなかった場合
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (dayValue == data.comas['曜日'] && 
+            (timeValue1 >= data.comas.parseInt(comasData['実施時間'].split('-')[0]) ||
+            timeValue1 <= data.comas.parseInt(comasData['実施時間'].split('-')[1]))) {
                 alert('既に同じ曜日と時間帯で登録されています。');
                 return;
             }
-        }        
-    
+        });
+
         if (subject !== '') {
             const koma = {
                 科目名: subject,
@@ -354,7 +361,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             const classroomName = subjectItem.dataset.classroomName;
             const timeValue = subjectItem.dataset.timeValue;
             const dayValue = subjectItem.dataset.dayValue;
-            
+    
             console.log('getRegisteredClasses:', {
                 subjectName,
                 teacherName,
@@ -495,10 +502,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
     });
     */
-    function isDuplicateKoteiKoma(dayValue, timeValue) {
-        const existingKomas = Array.from(kotei.children);
-        return existingKomas.some(koteiItem => koteiItem.dataset.dayValue === dayValue && koteiItem.dataset.timeValue === timeValue);
-    }   
+    
 
     // 起動時にコマ表のデータを取得して登録済みコマとして表示
     await initializeKomas();
