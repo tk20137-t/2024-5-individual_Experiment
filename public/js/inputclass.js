@@ -290,10 +290,10 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             return response.json();
         })
         .then(data => {
-            if (dayValue == data.comas['曜日'] && 
-            (timeValue1 >= data.comas.parseInt(comasData['実施時間'].split('-')[0]) ||
-            timeValue1 <= data.comas.parseInt(comasData['実施時間'].split('-')[1]))) {
-                alert('既に同じ曜日と時間帯で登録されています。');
+            if (dayOfWeek == data.comas['曜日'] && 
+            (time1 >= data.comas.parseInt(comasData['実施時間'].split('-')[0]) ||
+            time1 <= data.comas.parseInt(comasData['実施時間'].split('-')[1]))) {
+                alert('既に固定コマが同じ曜日と時間帯で登録されています。');
                 return;
             }
         });
