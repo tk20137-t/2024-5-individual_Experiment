@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function insertComas(comasData, dayToIndex, table){        
         // コマの情報から行番号と列番号を計算
         const [grade, classNumber] = comasData['クラス'].split('-');
-        const rowNumber = (parseInt(grade) - 1) * 5 + parseInt(classNumber) + 2;
+        let rowNumber = (parseInt(grade) - 1) * 5 + parseInt(classNumber) + 2;
         if(rowNumber == 36){
             rowNumber = 35;
         }
