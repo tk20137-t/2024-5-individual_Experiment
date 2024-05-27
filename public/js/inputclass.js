@@ -281,23 +281,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         const time1 = timeInput1.value.trim();
         const time2 = timeInput2.value.trim();
         const dayOfWeek = dayOfWeekSelect.value.trim();
-        fetch('https://two024-5-individual-experiment.onrender.com/fetch-data')
-        .then(response => {
-            if (!response.ok) {
-                // レスポンスが成功しなかった場合
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("data.comas:", data.comas);
-            if (dayOfWeek == data.comas['曜日'] && 
-            (time1 >= data.comas.parseInt(comasData['実施時間'].split('-')[0]) ||
-            time1 <= data.comas.parseInt(comasData['実施時間'].split('-')[1]))) {
-                alert('既に固定コマが同じ曜日と時間帯で登録されています。');
-                return;
-            }
-        });
 
         if (subject !== '') {
             const koma = {
