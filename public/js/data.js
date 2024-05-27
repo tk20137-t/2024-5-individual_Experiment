@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const [grade, classNumber] = comasData['クラス'].split('-');
         let rowNumber = (parseInt(grade) - 1) * 5 + parseInt(classNumber) + 2;
         if(grade == 7){
-            rowNumber = 30 + parseInt(classNumber);
+            rowNumber = 31 + parseInt(classNumber);
         }
         const startTime = parseInt(comasData['実施時間'].split('-')[0]);//1か3か5か7
         const finishTime = parseInt(comasData['実施時間'].split('-')[1]);
