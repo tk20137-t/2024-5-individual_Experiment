@@ -290,6 +290,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             return response.json();
         })
         .then(data => {
+            console.log("data.comas:", data.comas);
             if (dayOfWeek == data.comas['曜日'] && 
             (time1 >= data.comas.parseInt(comasData['実施時間'].split('-')[0]) ||
             time1 <= data.comas.parseInt(comasData['実施時間'].split('-')[1]))) {
