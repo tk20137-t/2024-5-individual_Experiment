@@ -97,7 +97,7 @@ function displayTeacherDB() {
               <p><strong>所属:</strong> ${teacher.所属}</p>
             </div>
             <div>
-              <p><strong>常勤・非常勤:</strong> ${teacher["常勤・非常勤"]}</p>
+              <p><strong>常勤・非常勤:</strong> ${teacher.勤務形態}</p>
             </div>
             <div class="delete-teacherButton">
               <button class="btn btn-secondary" id="teacherDelete${teacher.教員ID}">削除</button>
@@ -136,7 +136,7 @@ function displayClassroomDB() {
               <p><strong>教室名:</strong> ${classroom.教室名}</p>
             </div>
             <div>
-              <p><strong>HR・特別教室:</strong> ${classroom["HR・特別教室"]}</p>
+              <p><strong>HR・特別教室:</strong> ${classroom.教室設定}</p>
             </div>
             <div class="delete-classroomButton">
               <button class="btn btn-secondary" id="classroomDelete${classroom.教室ID}">削除</button>
