@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const sortable = document.getElementById('sortable');
     const registerBtn = document.getElementById('registerBtn');
     const confirmBtn = document.getElementById('confirmBtn');
+    const kotei = document.getElementById('kotei'); // 固定コマ用の要素
 
     async function fetchTeachers() {
         try {
@@ -346,7 +347,14 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             const classroomName = subjectItem.dataset.classroomName;
             const timeValue = subjectItem.dataset.timeValue;
             const dayValue = subjectItem.dataset.dayValue;
-    
+            
+            if (subjectName && teacherName1 && timeValue1 && classValue && classroomName && dayValue) {
+                // 重複チェック
+                if (isDuplicateKoteiKoma(dayValue, timeValue1)) {
+                    alert('既に固定コマで同じ曜日と時間帯で登録されています。');
+                    return;
+                }
+            
             console.log('getRegisteredClasses:', {
                 subjectName,
                 teacherName,
