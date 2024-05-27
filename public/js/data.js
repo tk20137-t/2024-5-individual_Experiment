@@ -192,8 +192,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // コマの情報から行番号と列番号を計算
         const [grade, classNumber] = comasData['クラス'].split('-');
         let rowNumber = (parseInt(grade) - 1) * 5 + parseInt(classNumber) + 2;
-        if(rowNumber == 36){
-            rowNumber = 35;
+        if(grade == 7){
+            rowNumber = 30 + parseInt(classNumber);
         }
         const startTime = parseInt(comasData['実施時間'].split('-')[0]);//1か3か5か7
         const finishTime = parseInt(comasData['実施時間'].split('-')[1]);
